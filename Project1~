@@ -11,7 +11,7 @@
 ;; so the equations of motion for the ball have a vertical and a 
 ;; horizontal component
 
-;; the vertical component is governed byl
+;; the vertical component is governed by
 ;; y(t) = v sin alpha t + h - 1/2 g t^2 
 ;; where g is the gravitational constant of 9.8 m/s^2
 
@@ -49,38 +49,14 @@
 
 
 ;; Problem 2
-(define (good-enough? guess x)
-  (< (abs (- (square guess) x)) 0.001))
-
-(define (average x y)
-  (/ (+ x y) 2))
-
-(define (improve guess x)
-  (average guess (/ x guess)))
-
-(define (sqrt-iter guess x)
-  (if (good-enough? guess x)
-      guess
-      (sqrt-iter (improve guess x)
-                 x)))
-
-(define (sqrt x)
-  (sqrt-iter 1.0 x))
-
 
 (define root1
   (lambda (a b c)
-    (+ b- sqrt(-
-               (square b)
-               (* 4 a x)
-               ))))
+    YOUR-CODE-HERE))
 
 (define root2
   (lambda (a b c)
-    (- -b sqrt(-
-               (square b)
-               (* 4 a x)
-               ))))
+    YOUR-CODE-HERE))
 
 ;; complete these procedures and show some test cases
 
