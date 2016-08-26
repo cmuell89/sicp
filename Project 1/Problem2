@@ -1,0 +1,71 @@
+#lang racket
+;; Problem 2
+(define square
+  (lambda (x) (* x x)))
+
+(define (good-enough? guess x)
+  (< (abs (- (square guess) x)) 0.0000001))
+
+(define (average x y)
+  (/ (+ x y) 2))
+
+(define (improve guess x)
+  (average guess (/ x guess)))
+
+(define (sqrt-iter guess x)
+  (if (good-enough? guess x)
+      guess
+      (sqrt-iter (improve guess x)
+                 x)))
+
+;; Implementation Newton's Successive Approximations for Square Root.
+(define (sqrt x)
+  (sqrt-iter 1.0 x))
+
+(define radicand-check
+  (lambda (radicand)
+    (if (>= radicand 0)
+        true
+        false)))
+
+(define qe-radicand
+  (lambda (a b c)
+    (- (square b) (* 4 a c))))
+
+(define root1
+  (lambda (a b c)
+    (if (radicand-check (qe-radicand a b c)) 
+        (/ (+ (* -1 b)
+              (sqrt(-
+                    (square b)
+                    (* 4 a c))))
+            (* 2 a))
+        "imaginary value")))
+    
+(define root2
+  (lambda (a b c)
+    (if (radicand-check (qe-radicand a b c)) 
+        (/ (- (* -1 b)
+              (sqrt(-
+                    (square b)
+                    (* 4 a c))))
+            (* 2 a))
+        "imaginary value")))
+
+(define bigger-root
+  (lambda (root1 root2)
+    (if (and (equal? root1 "imaginary value") (equal? root2 "imaginary value"))
+        "imaginary roots"
+        (if (equal? root1 "imaginary value")
+            root2
+            root1))))
+
+(define quadratic-eq
+  (lambda (a b c)
+    (bigger-root (root1 a b c) (root2 a b c))))
+    
+;; complete these procedures and show some test cases
+
+(quadratic-eq 1 0 -1) ; 1
+(quadratic-eq -1 0 1) ; -1
+(quadratic-eq 5 6 7) ; "imaginary roots"
